@@ -45,6 +45,10 @@ html, body {
   color: var(--default-text-color);
 }
 
+p {
+  line-height: 1.2rem;
+}
+
 ol, ul {
   list-style: none;
 }

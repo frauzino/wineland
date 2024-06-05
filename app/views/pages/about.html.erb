@@ -1,1 +1,48 @@
-<h1>About</h1>
+<div class="page-container">
+
+  <%= render 'components/text_with_image',
+    title: "Locally Owned and Operated",
+    content: ("Peter grew up in Penticton, graduating from Penticton High School in 1977, and has lived in Naramata, B.C.\\
+      for over 30 years. He is proud to be a part of the community and is dedicated to providing you with the best\\
+      products possible, made with local Okanagan and B.C. ingredients.
+
+      The Wineland Dressings Kitchen is located in the historic Cannery building in Penticton, B.C., where we make our\\
+      vinaigrettes in small batches to ensure the highest quality and flavor.
+
+      Peter continues to focus on the community through his involvement with local farmers and makers markets").gsub("\\\n", " "),
+    image: "okanagan_lake.jpg",
+    image_alt: "Okanagan Lake Image",
+    reverse: false,
+    buttons: [{
+      text: "Find Us at a Market Near You",
+      path: '',
+      variant: "primary"
+    }]
+  %>
+
+  <%= render 'components/text_with_image',
+    title: "Our Story",
+    content: ("After obtaining a diploma in Hotel and Catering Management from Norwich City College, U.K.,\\
+      Peter worked in the hotel and restaurant industry in the U.K. and Canada.\\
+      Under his management London's famous Café Royal was awarded a prestigious Michelin Star.\\
+      After moving back to the Okanagan to raise his family, Peter worked as a chef at several of the South Okanagan's finest restaurants,\\
+      including Hillside Estate Winery.
+
+      In 2000, in response to the demand for the vinaigrettes served in the Bistro at Hillside Estate Winery, Peter began bottling and selling\\
+      the Roast Garlic Balsamic Vinaigrette. Being at a winery meant access to bottles and a retail outlet so and Wineland Dressings was born.
+
+      Since then Wineland Dressings has moved to a dedicated commercial kitchen in Penticton, B.C. and grown to include 6 specialty vinaigrettes,\\
+      all made with local Okanagan and B.C. ingredients.
+
+      The name Wineland Dressings is a nod to the Okanagan Valley's rich history of winemaking and the role it played in the creation of the company.").gsub("\\\n", " "),
+    image: "market.jpg",
+    image_alt: "Our Story Image",
+    reverse: true,
+    buttons: [{
+      text: "Discover Our Products",
+      path: products_path,
+      variant: "primary"
+    }]
+  %>
+
+</div>

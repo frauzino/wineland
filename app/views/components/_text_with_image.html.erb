@@ -3,7 +3,9 @@
 <div class="text-with-image <%= reverse && 'reverse' %>">
   <div class="twi-text-container">
     <h1><%= title %></h1>
-    <p><%= content %></p>
+    <div class="twi-text-block">
+      <%= simple_format(content) %>
+    </div>
     <% if buttons %>
       <div class="twi-buttons">
         <% buttons.each do |button| %>

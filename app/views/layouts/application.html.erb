@@ -14,5 +14,15 @@
   <body>
     <%= render 'components/navbar' %>
     <%= yield %>
+    <%= render "components/footer",
+      links: [
+        { link_text: "About Us", link_path: about_path },
+        { link_text: "Contact Us", link_path: "#" },
+        { link_text: "Retailers", link_path: "#" },
+        { link_text: "FAQ", link_path: "#" },
+        { link_text: "Privacy Policy", link_path: "#" },
+        { link_text: "Terms of Sale & Delivery", link_path: "#" }
+      ]
+    %>
   </body>
 </html>

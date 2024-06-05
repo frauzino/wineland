@@ -1,0 +1,30 @@
+.retailers-section {
+  padding: var(--home-page-section-padding);
+  text-align: center;
+}
+
+.retailers-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.retailer-logo {
+  width: 100%;
+  max-width: 12rem;
+}
+
+@media screen and (max-width: 768px) {
+  .retailers-section {
+    display: flex;
+    flex-direction: column;
+    padding: var(--mobile-section-padding);
+  }
+
+  .retailers-container {
+    flex-direction: column;
+    margin-top: 2rem;
+    gap: var(--card-gap);
+  }
+
+}

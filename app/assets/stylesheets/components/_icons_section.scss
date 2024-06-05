@@ -1,0 +1,46 @@
+.icons-section {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--home-page-section-padding);
+  background-color: var(--brand-green-pale);
+  margin: var(--section-margin);
+}
+
+.icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: transparent;
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.icon {
+  padding: .5rem;
+  border-radius: 50%;
+  border: 2px solid var(--brand-green);
+  width: 80px;
+  aspect-ratio: 1/1;
+  background-color: transparent;
+}
+
+.icon-slash {
+  background: linear-gradient(to bottom left, transparent, transparent 49.5%, var(--brand-green) 49.5%, var(--brand-green) 50.5%, transparent 50.5%, transparent);
+}
+
+@media screen and (max-width: 768px) {
+  .icons-section {
+    flex-direction: column;
+    padding: var(--mobile-section-padding);
+    gap: 2rem;
+    margin: 0;
+  }
+
+  .icon-wrapper {
+    gap: 0.5rem;
+  }
+}

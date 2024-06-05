@@ -1,0 +1,19 @@
+<%# accepts: title: string, content: string, image: string, image_alt: string, buttons: array, reverse: boolean %>
+
+<div class="text-with-image <%= reverse && 'reverse' %>">
+  <div class="twi-text-container">
+    <h1><%= title %></h1>
+    <p><%= content %></p>
+    <% if buttons %>
+      <div class="twi-buttons">
+        <% buttons.each do |button| %>
+          <%= render 'components/button', type: 'link', text: button[:text], path: button[:path], variant: button[:variant] %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="twi-image-container">
+    <%= image_tag image, alt: image_alt, class: "twi-image" %>
+  </div>
+</div>

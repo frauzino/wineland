@@ -1,0 +1,12 @@
+<%# accepts: title: string, retailers: array of hashes %>
+
+<div class="retailers-section">
+  <h1>
+    <%= title %>
+  </h1>
+  <div class="retailers-container">
+    <% retailers.each do |retailer| %>
+      <%= image_tag retailer[:image], alt: retailer[:alt_text], class: 'retailer-logo' %>
+    <% end %>
+  </div>
+</div>

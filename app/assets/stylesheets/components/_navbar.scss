@@ -1,0 +1,32 @@
+.navbar {
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 8rem;
+}
+
+.logo-image {
+  width: 15rem;
+}
+
+.nav-items {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-item {
+  font-size: 1.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.nav-link {
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--faded-text-color);
+  }
+}

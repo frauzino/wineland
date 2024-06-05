@@ -12,11 +12,16 @@
 
 .twi-text-container {
   flex: 1;
-  padding: var(--card-padding);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: left;
+}
+
+.twi-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .twi-buttons {

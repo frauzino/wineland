@@ -2,7 +2,8 @@
 
   <%= render "components/banner",
     title: "Made Locally, With Local Ingredients",
-    content: "Our vinaigrettes are made with the freshest ingredients from local farms. We are proud to support our local community and provide you with the best products possible.",
+    content: ("Our vinaigrettes are made with the freshest ingredients from local farms. We are proud to support our\\
+    local community and provide you with the best products possible.").gsub("\\\n", " "),
     button_text: "Discover",
     button_path: products_path
    %>
@@ -66,16 +67,5 @@
       path: about_path,
       variant: "primary"
     }]
-  %>
-
-  <%= render "components/footer",
-    links: [
-      { link_text: "About Us", link_path: about_path },
-      { link_text: "Contact Us", link_path: "#" },
-      { link_text: "Retailers", link_path: "#" },
-      { link_text: "FAQ", link_path: "#" },
-      { link_text: "Privacy Policy", link_path: "#" },
-      { link_text: "Terms of Sale & Delivery", link_path: "#" }
-    ]
   %>
 </div>

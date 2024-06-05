@@ -1,0 +1,8 @@
+<div class="banner">
+  <%= image_tag 'wineland_banner.jpg', alt: 'Banner Image', class: 'banner-image' %>
+  <div class="text-box">
+    <h1><%= title %></h1>
+    <p><%= content %></p>
+    <%= render 'components/button', type: 'link', text: button_text, path: button_path, variant: 'primary' %>
+  </div>
+</div>

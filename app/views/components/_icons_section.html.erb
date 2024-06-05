@@ -1,0 +1,8 @@
+<div class="icons-section">
+  <% icons.each do |icon| %>
+    <div class="icon-wrapper">
+      <%= image_tag icon[:image], alt: icon[:alt_text], class: "icon #{icon[:slash] && 'icon-slash'}" %>
+      <h4><%= icon[:title] %></h4>
+    </div>
+  <% end %>
+</div>

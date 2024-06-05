@@ -1,0 +1,9 @@
+<%# accepts: text: string, path: string/helper, variant: string, type: string %>
+
+<div class="button-wrapper">
+  <% if type == 'link' %>
+    <%= link_to text, path, class: "btn btn-#{variant}" %>
+  <% else %>
+    <%= button_to text, path, class: "btn btn-#{variant}" %>
+  <% end %>
+</div>

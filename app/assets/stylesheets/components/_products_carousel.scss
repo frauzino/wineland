@@ -1,0 +1,64 @@
+.carousel {
+  padding: var(--home-page-section-padding);
+  // margin: var(--section-margin);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background-color: var(--brand-green-dark);
+  color: var(--default-text-color-light);}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-slider {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100%;
+  scrollbar-width: none;
+  margin-bottom: 2rem;
+}
+
+.carousel-slide {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+}
+
+.carousel-navigation {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-button {
+  background-color: transparent;
+  border: none;
+  color: var(--default-text-color-light);
+  font-size: 1.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .carousel {
+    padding: var(--mobile-section-padding);
+  }
+
+  .carousel-slider {
+    gap: 2rem;
+  }
+
+  .carousel-slide {
+    flex: 0 0 200px;
+  }
+}

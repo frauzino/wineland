@@ -6,7 +6,7 @@
     local community and provide you with the best products possible.").gsub("\\\n", " "),
     button_text: "Discover",
     button_path: products_path
-   %>
+  %>
 
   <%= render "components/featured_retailers",
     title: "Find Us At These Retailers",
@@ -56,16 +56,18 @@
     }]
   %>
 
-  <%= render "components/text_with_image",
-    title: "Small Batches, Big Flavor",
-    content: "Our vinaigrettes are made in small batches to ensure the highest quality and flavor. We take pride in our craft and are dedicated to providing you with the best products possible.",
-    image: "market.jpg",
-    image_alt: "Our Story Image",
-    reverse: false,
-    buttons: [{
-      text: "Learn More",
-      path: about_path,
-      variant: "primary"
-    }]
-  %>
+  <div class="page-container">
+    <%= render "components/text_with_image",
+      title: "Small Batches, Big Flavor",
+      content: "Our vinaigrettes are made in small batches to ensure the highest quality and flavor. We take pride in our craft and are dedicated to providing you with the best products possible.",
+      image: "market.jpg",
+      image_alt: "Our Story Image",
+      reverse: false,
+      buttons: [{
+        text: "Learn More",
+        path: about_path,
+        variant: "primary"
+      }]
+    %>
+  </div>
 </div>

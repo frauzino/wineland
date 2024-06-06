@@ -1,0 +1,45 @@
+.accordion {
+  padding-bottom: 4rem;
+}
+
+.accordion-content {
+  max-height: 20rem;
+  overflow: auto;
+}
+
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.active {
+  max-height: 10rem;
+}
+
+.accordion-chevron {
+  transition: transform 0.3s ease-in-out;
+}
+
+.flip-chevron {
+  transform: rotateX(180deg);
+}
+
+.accordion-title {
+  width: max-content;
+  border-bottom: 2px solid;
+}
+
+.accordion-item-header{
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .accordion-title {
+    width: 100%;
+    text-align: center;
+  }
+}

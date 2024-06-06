@@ -3,17 +3,9 @@
     <%= link_to image_tag('wineland_logo.png', alt: 'Logo', class: 'logo-image'), root_path %>
   </div>
   <ul class="nav-items">
-    <li class="nav-item">
-      <%= link_to 'Home', root_path, class: 'nav-link' %>
-    </li>
-    <li class="nav-item">
-      <%= link_to 'About', about_path, class: 'nav-link' %>
-    </li>
-    <li class="nav-item">
-      <%= link_to 'Products', products_path, class: 'nav-link' %>
-    </li>
-    <li class="nav-item">
-      <%= link_to 'Contact', contact_path, class: 'nav-link' %>
-    </li>
+    <% nav_items.each do |item| %>
+      <li class="nav-item">
+        <%= link_to item[:link_text], item[:link_path], class: 'nav-link' %>
+    <% end %>
   </ul>
 </nav>

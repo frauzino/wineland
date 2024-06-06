@@ -1,0 +1,14 @@
+<div class="accordion" data-controller="accordion">
+  <h2 class="accordion-title"><%= title %></h2>
+  <div class="accordion-content">
+    <% items.each_with_index do |item, index| %>
+      <h4 class="accordion-item-header" id="<%= index %>" data-action="click->accordion#toggle">
+        <%= item[:header] %>
+        <i class="fa-solid fa-chevron-down accordion-chevron" data-accordion-target="chevron"></i>
+      </h4>
+      <div class="accordion-panel" data-accordion-target="panel">
+        <%= simple_format(item[:content]) %>
+      </div>
+    <% end %>
+  </div>
+</div>

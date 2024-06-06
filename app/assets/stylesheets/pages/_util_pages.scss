@@ -1,0 +1,23 @@
+.util-page-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 24rem;
+}
+
+.utility-content {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  h4 {
+    margin: .5rem 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .util-page-container {
+    padding: 4rem 2rem;
+  }
+
+}

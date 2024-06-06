@@ -1,0 +1,14 @@
+<div class="page-container">
+  <h1 class="page-title">Find us at These Retailers</h1>
+
+  <div class="retailers-list">
+    <% if @regions.present? %>
+      <% @regions.each do |region| %>
+        <%= render "components/accordion",
+          title: region,
+          items: retailers_for_region_to_hash(region)
+        %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

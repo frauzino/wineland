@@ -1,15 +1,30 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-# Create products
 
 Product.destroy_all
 Retailer.destroy_all
+Market.destroy_all
+
+# Create Markets
+
+Market.create(
+  name: 'Kelowna Farmers Market',
+  description: 'The Kelowna Farmers Market is a market that features farm fresh produce, locally made crafts, and delicious food.',
+  address: '1992 Dilworth Dr',
+  start_date_time: '2024-06-10 08:00:00',
+  end_date_time: '2024-06-10 13:00:00'
+)
+
+Market.create(
+  name: 'Penticton Farmers Market',
+  description: 'The Penticton Farmers Market is a market that features farm fresh produce, locally made crafts, and delicious food.',
+  address: '100 Main St',
+  start_date_time: '2024-06-05 08:00:00',
+  end_date_time: '2024-06-05 13:00:00'
+)
+
+
+# Create products
 
 puts 'Creating products... and attaching images from app/assets/images/...'
 

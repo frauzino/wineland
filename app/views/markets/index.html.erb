@@ -1,0 +1,28 @@
+<div class="page-container">
+  <h1 class="page-title">Markets and Shows</h1>
+
+  <div class="markets-container">
+    <div class="markets-list">
+      <% if @upcoming_markets.present? %>
+          <div class="market-info">
+          <%= render "components/accordion",
+            title: 'Upcoming Events',
+            items: markets_to_hash(@upcoming_markets)
+          %>
+          </div>
+      <% end %>
+    </div>
+
+    <div class="markets-list">
+      <% if @past_markets.present? %>
+          <div class="market-info">
+          <%= render "components/accordion",
+            title: 'Past Events',
+            items: markets_to_hash(@past_markets)
+          %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

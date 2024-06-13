@@ -1,0 +1,44 @@
+<%= form_for @contact, url: contact_index_path, remote: true do |f| %>
+
+  <% if @contact.errors.any? %>
+    <% @contact.errors.each do |error| %>
+      <%= render "shared/flash",
+        error: true,
+        notice: "#{error.full_message}"
+      %>
+    <% end %>
+  <% end %>
+
+  <div id="contact-form" class="contact-form">
+    <h2 class="contact-form-title">Write to us!</h2>
+
+    <div class="contact-form-inputs-wrapper">
+      <%= f.text_field  :name,
+        class: "contact-form-input",
+        required: true,
+        placeholder: "Name"
+      %>
+
+      <%= f.text_field :email,
+        class: "contact-form-input",
+        required: true,
+        placeholder: "Email"
+      %>
+    </div>
+
+    <%= f.text_area :message,
+      class: "contact-form-input contact-form-text-area",
+      rows: 3,
+      cols: 40,
+      required: true,
+      placeholder: "Message"
+    %>
+
+    <div class= "hidden">
+      <%= f.label :nickname %>
+      <%= f.text_field :nickname, :hint => 'Leave this field blank!' %>
+    </div>
+
+    <%= f.submit 'Send', class: 'btn btn-primary contact-form-submit' %>
+  </div>
+<% end %>

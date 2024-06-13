@@ -1,10 +1,23 @@
-<p style="color: green"><%= notice %></p>
+<div class="page-container">
+  <div class="product-show">
+    <div class="product-show-image-wrapper">
+      <%= image_tag @product.image, alt: @product.name, class: 'product-show-image' %>
+    </div>
 
-<%= render @product %>
+    <div class="product-show-content-wrapper">
+      <div class="product-show-content">
+        <div class="product-show-info">
+          <h1><%= @product.name %></h1>
+          <p class="price"><%= number_to_currency(@product.price) %></p>
+          <p><%= @product.description %></p>
+        </div>
 
-<div>
-  <%= link_to "Edit this product", edit_product_path(@product) %> |
-  <%= link_to "Back to products", products_path %>
-
-  <%= button_to "Destroy this product", @product, method: :delete %>
+        <div class="add-to-cart-wrapper">
+          <%= render 'components/quantity_selector' %>
+          <%= render 'components/button', type: 'link', text: 'Add to cart', path: '#', variant: 'primary' %>
+          <%#= render 'components/button', type: 'link', text: 'Add to cart', path: cart_path(product_id: @product.id), variant: 'primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

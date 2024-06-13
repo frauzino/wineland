@@ -1,0 +1,40 @@
+.quantity-selector {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  button, #quantity {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.selector {
+  padding: .5rem;
+  border-bottom: 2px solid var(--faded-text-color);
+}
+
+#quantity {
+  width: 2rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+#quantity::-webkit-outer-spin-button,
+#quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#quantity[type=number] {
+  appearance: textfield;
+}

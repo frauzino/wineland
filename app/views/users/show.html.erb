@@ -1,0 +1,9 @@
+<div class="page-container">
+  <h1 class="page-title">Your Account</h1>
+
+  <div class="user-info-container">
+    <h3>Your account information</h3>
+      <%= @user.email %>
+      <%= render "components/button", text: "Edit your account", path: edit_user_registration_path(@user), variant: "primary", type: "link" %>
+  </div>
+</div>

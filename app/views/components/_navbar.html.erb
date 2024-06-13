@@ -8,4 +8,16 @@
         <%= link_to item[:link_text], item[:link_path], class: 'nav-link' %>
     <% end %>
   </ul>
+  <ul class="nav-icons">
+    <li class="nav-item">
+      <%= link_to (user_signed_in? ? current_user : new_user_session_path) do %>
+        <i class="fa-solid fa-user nav-icon"></i>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to root_path do %>
+        <i class="fa-solid fa-cart-shopping nav-icon"></i>
+      <% end %>
+    </li>
+  </ul>
 </nav>

@@ -1,0 +1,8 @@
+<% if resource.errors.any? %>
+    <% resource.errors.each do |error| %>
+      <%= render "shared/flash",
+        error: true,
+        notice: "#{error.full_message}"
+      %>
+    <% end %>
+  <% end %>

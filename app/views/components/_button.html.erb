@@ -3,6 +3,8 @@
 <div class="button-wrapper">
   <% if type == 'link' %>
     <%= link_to text, path, class: "btn btn-#{variant}" %>
+  <% elsif type == 'submit' %>
+    <%= button_tag text, class: "btn btn-#{variant}" %>
   <% else %>
     <%= button_to text, path, class: "btn btn-#{variant}" %>
   <% end %>

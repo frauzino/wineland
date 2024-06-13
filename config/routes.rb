@@ -5,10 +5,11 @@ Rails.application.routes.draw do
   resources :retailers, except: [:show]
   resources :products
   resources :markets
+  resources :contact, only: [:new, :create]
 
   get 'pages/home', as: 'home'
   get 'pages/about', as: 'about'
-  get 'pages/contact', as: 'contact'
+  # get 'pages/contact', as: 'contact'
   get 'pages/privacy', as: 'privacy'
   get 'pages/faq', as: 'faq'
   get 'pages/tos', as: 'tos'

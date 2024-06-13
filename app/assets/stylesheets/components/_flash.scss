@@ -1,0 +1,17 @@
+.flash {
+  z-index: 1001;
+  position: absolute;
+  top: 5rem;
+  right: 5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+  background: lightgreen;
+  color: darkgreen;
+  box-shadow: var(--base-shadow);
+}
+
+.flash-error {
+  background: lightcoral;
+  color: darkred
+}

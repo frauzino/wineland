@@ -48,6 +48,10 @@ gem "sassc-rails"
 # Use byebug as the debugger
 gem "byebug"
 
+# use Mail Form for contact form
+gem "mail_form"
+gem "mailcatcher"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

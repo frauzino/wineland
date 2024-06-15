@@ -4,15 +4,44 @@
 Product.destroy_all
 Retailer.destroy_all
 Market.destroy_all
+User.destroy_all
+Order.destroy_all
+
+# Create Admin User
+
+puts 'Creating admin user...'
+
+User.create(
+  email: 'admin@admin.com',
+  password: 'secret',
+  password_confirmation: 'secret',
+  admin: true
+)
+
+puts 'Admin user created!'
+
+# Create Retailer User
+
+puts 'Creating retailer user...'
+
+User.create(
+  email: 'test@test.com',
+  password: 'secret',
+  password_confirmation: 'secret'
+)
+
+puts 'Retailer user created!'
 
 # Create Markets
+
+puts 'Creating markets...'
 
 Market.create(
   name: 'Kelowna Farmers Market',
   description: 'The Kelowna Farmers Market is a market that features farm fresh produce, locally made crafts, and delicious food.',
   address: '1992 Dilworth Dr',
-  start_date_time: '2024-06-10 08:00:00',
-  end_date_time: '2024-06-10 13:00:00'
+  start_date_time: '2024-10-10 08:00:00',
+  end_date_time: '2024-10-10 13:00:00'
 )
 
 Market.create(
@@ -23,6 +52,7 @@ Market.create(
   end_date_time: '2024-06-05 13:00:00'
 )
 
+puts 'Markets created!'
 
 # Create products
 
@@ -119,7 +149,7 @@ Product.last.image.attach(
 
 Product.create(
   name: '3 Bottle Variety Pack',
-  price: 80.00,
+  price: 23.00,
   description: "You can mix & match your Variety Pack with all of our products and can order as many
     Variety Packs as you'd like."
 )

@@ -1,0 +1,23 @@
+<div class="page-container">
+  <h1 class="page-title">Your Cart</h1>
+  <div class="cart">
+    <table class="cart-table">
+      <tr class="cart-table-headers">
+        <td>Product</td>
+        <td>Price</td>
+        <td>Quantity</td>
+        <td>Total</td>
+        <td></td>
+      </tr>
+      <% @order.each do |item| %>
+        <tr class="cart-table-product">
+          <td><%= item.name %></td>
+          <td><%= number_to_currency(item.price) %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.price * item.quantity) %></td>
+          <td><%= link_to "Remove", remove_from_order_path(item), method: :delete %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

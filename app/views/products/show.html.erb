@@ -14,8 +14,8 @@
 
         <div class="add-to-cart-wrapper">
           <%= render 'components/quantity_selector' %>
-          <%= render 'components/button', type: 'link', text: 'Add to cart', path: '#', variant: 'primary' %>
-          <%#= render 'components/button', type: 'link', text: 'Add to cart', path: cart_path(product_id: @product.id), variant: 'primary' %>
+          <%#= render 'components/button', type: 'link', text: 'Add to cart', path: '#', variant: 'primary' %>
+          <%= render 'components/button', type: 'button', text: 'Add to cart', path: add_to_cart_path(product_id: @product.id), variant: 'primary' %>
         </div>
       </div>
     </div>

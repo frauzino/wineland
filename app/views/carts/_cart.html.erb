@@ -1,0 +1,26 @@
+<div class="cart" id="<%= dom_id cart %>">
+  <% if @cart.products.empty? %>
+    <p>Your cart is empty.</p>
+  <% else %>
+    <div class=cart-grid>
+      <div class=cart-grid-headers>
+        <h5 class="cart-grid-headers-product">Product</h5>
+        <h5 class="cart-grid-headers-price">Price</h5>
+        <h5 class="cart-grid-headers-quantity">Quantity</h5>
+        <h5 class="cart-grid-headers-total">Total</h5>
+      </div>
+
+      <% @cart.products.uniq.each do |item| %>
+        <% quantity = @quantities[item.id] %>
+        <div class=cart-grid-product>
+          <div class="cart-grid-item"><%= image_tag item.image, alt: item.name, class: "cart-item-image" %></div>
+          <div class="cart-grid-item"><%= link_to item.name, product_path(item) %></div>
+          <div class="cart-grid-item"><%= number_to_currency(item.price) %></div>
+          <div class="cart-grid-item"><%= render "components/quantity_selector", label: false, value: quantity %></div>
+          <div class="cart-grid-item"><%= number_to_currency(item.price * quantity) %></div>
+          <div class="cart-grid-item"><%= link_to "Remove", remove_from_cart_path(item), method: :delete %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

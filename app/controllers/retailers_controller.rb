@@ -1,5 +1,5 @@
 class RetailersController < ApplicationController
-  before_action :set_retailer, only: %i[ edit update destroy ]
+  before_action :set_retailer, only: %i[edit update destroy]
 
   # GET /retailers or /retailers.json
   def index

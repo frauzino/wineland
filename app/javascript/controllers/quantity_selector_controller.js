@@ -5,11 +5,13 @@ export default class extends Controller {
 
   static targets = [ "quantity" ]
 
-  increase() {
+  increase(event) {
+    event.preventDefault()
     this.quantityTarget.value = parseInt(this.quantityTarget.value) + 1
   }
 
-  decrease() {
+  decrease(event) {
+    event.preventDefault()
     if (parseInt(this.quantityTarget.value) > 1) {
       this.quantityTarget.value = parseInt(this.quantityTarget.value) - 1
     }

@@ -1,3 +1,32 @@
 .user-info-container {
   margin: var(--section-margin)
 }
+
+.account-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-orders-container, .user-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.user-order {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--faded-text-color);
+}
+
+.account-buttons {
+  display: flex;
+  gap: 1rem;
+}

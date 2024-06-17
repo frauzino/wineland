@@ -1,8 +1,17 @@
+<%# accepts: label: boolean, value: number, item %>
+
 <div class="quantity-selector" data-controller="quantity-selector">
-  <label for="quantity">Quantity:</label>
+  <% if local_assigns[:label] %>
+    <label for="quantity">Quantity:</label>
+  <% end %>
   <div class="selector">
     <button data-action="quantity-selector#decrease"><i class="fa-solid fa-minus"></i></button>
-    <input type="number" id="quantity" data-quantity-selector-target="quantity" value="1" min="1">
+    <%= form.number_field "quantities[#{item.id}]",
+      id: "quantity",
+      data: { quantity_selector_target: "quantity" },
+      value: local_assigns[:value] ? local_assigns[:value] : "1",
+      min: "1"
+    %>
     <button data-action="quantity-selector#increase"><i class="fa-solid fa-plus"></i></button>
   </div>
 </div>

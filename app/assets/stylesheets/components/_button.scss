@@ -5,13 +5,16 @@
 }
 
 .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #f1f1f1;
   border: none;
   padding: 15px 32px;
-  width: 100%;
+  min-width: 5rem;
+  width: max-content;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
   cursor: pointer;
   transition: all .2s;
@@ -35,6 +38,19 @@
 
 .btn-secondary {
   background-color: transparent;
+  color: var(--brand-green-dark);
+  border: 1px solid var(--brand-green-dark);
+  transition: all .2s;
+
+  &:hover {
+    background-color: var(--brand-green-dark);
+    border: 1px solid transparent;
+    color: var(--default-text-color-light)
+  }
+}
+
+.btn-tertiary {
+  background-color: transparent;
   color: var(--default-text-color-light);
   border: 1px solid var(--background-white);
   transition: all .2s;
@@ -43,5 +59,17 @@
     background-color: var(--background-white);
     border: 1px solid transparent;
     color: var(--brand-green-dark)
+  }
+}
+
+.btn-delete {
+  background-color: transparent;
+  color: var(--medium-gray);
+  border: 1px solid transparent;
+  padding: 1rem;
+
+  &:hover {
+    background-color: transparent;
+    border: 1px solid var(--medium-gray);
   }
 }

@@ -1,9 +1,29 @@
 <div class="page-container">
   <h1 class="page-title">Your Account</h1>
 
-  <div class="user-info-container">
-    <h3>Your account information</h3>
-      <%= @user.email %>
-      <%= render "components/button", text: "Edit your account", path: edit_user_registration_path(@user), variant: "primary", type: "link" %>
+  <div class="account-container">
+    <div class="user-orders-container">
+      <h3>Your orders</h3>
+      <% if @user.orders.any? %>
+        <ul class="user-orders-list">
+          <% @user.orders.each do |order| %>
+            <li class="user-order">
+              <%= link_to order.id, order_path(order) %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>You have no orders yet.</p>
+      <% end %>
+    </div>
+
+    <div class="user-info-container">
+      <h3>Your account information</h3>
+        email: <%= @user.email %>
+        <div class="account-buttons">
+          <%= button_to "Edit your account", edit_user_registration_path(@user), class: "btn btn-secondary" %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+        </div>
+    </div>
   </div>
 </div>

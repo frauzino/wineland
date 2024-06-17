@@ -1,12 +1,19 @@
 <div class="product-card">
-  <div class="product-card-image-wrapper">
-    <%= image_tag product.image, alt: product.name, class: 'product-card-image' %>
-  </div>
-  <div class="product-card-content">
-    <div class="product-card-product-info">
-      <h3><%= product.name %></h3>
-      <%= render "components/price", product: %>
+  <%= link_to product_path(product), class: "product-card-inner" do %>
+    <div class="product-card-image-wrapper">
+      <%= image_tag product.image, alt: product.name, class: 'product-card-image' %>
     </div>
-    <%= render 'components/button', type: 'link', text: 'Discover', path: product_path(product), variant: button_type %>
-  </div>
+    <div class="product-card-content">
+      <div class="product-card-product-info">
+        <h3><%= product.name %></h3>
+        <%= render "components/price", product: %>
+      </div>
+    </div>
+  <% end %>
+  <%= button_to 'Add to Cart',
+    add_to_cart_path,
+    method: :post,
+    params: {product_id: product.id, quantities: {product.id => 1}},
+    class: "btn btn-#{button_type}"
+  %>
 </div>

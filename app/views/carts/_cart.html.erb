@@ -1,26 +1,48 @@
 <div class="cart" id="<%= dom_id cart %>">
   <% if @cart.products.empty? %>
     <p>Your cart is empty.</p>
+    <%= link_to "Continue shopping", products_path, class: "btn btn-primary" %>
   <% else %>
-    <div class=cart-grid>
-      <div class=cart-grid-headers>
-        <h5 class="cart-grid-headers-product">Product</h5>
-        <h5 class="cart-grid-headers-price">Price</h5>
-        <h5 class="cart-grid-headers-quantity">Quantity</h5>
-        <h5 class="cart-grid-headers-total">Total</h5>
-      </div>
 
-      <% @cart.products.uniq.each do |item| %>
-        <% quantity = @quantities[item.id] %>
-        <div class=cart-grid-product>
-          <div class="cart-grid-item"><%= image_tag item.image, alt: item.name, class: "cart-item-image" %></div>
-          <div class="cart-grid-item"><%= link_to item.name, product_path(item) %></div>
-          <div class="cart-grid-item"><%= number_to_currency(item.price) %></div>
-          <div class="cart-grid-item"><%= render "components/quantity_selector", label: false, value: quantity %></div>
-          <div class="cart-grid-item"><%= number_to_currency(item.price * quantity) %></div>
-          <div class="cart-grid-item"><%= link_to "Remove", remove_from_cart_path(item), method: :delete %>
+    <%= form_with url: update_cart_path, method: :patch do |form| %>
+      <div class=cart-grid>
+        <div class=cart-grid-headers>
+          <h4 class="cart-grid-headers-product">Product</h4>
+          <h4 class="cart-grid-headers-price">Price</h4>
+          <h4 class="cart-grid-headers-quantity">Quantity</h4>
+          <h4 class="cart-grid-headers-total">Total</h4>
         </div>
-      <% end %>
-    </div>
+
+        <% @cart.products.uniq.each do |item| %>
+          <% quantity = @quantities[item.id] %>
+          <div class=cart-grid-product>
+            <div class="cart-grid-item"><%= image_tag item.image, alt: item.name, class: "cart-item-image" %></div>
+            <div class="cart-grid-item"><%= link_to item.name, product_path(item) %></div>
+            <div class="cart-grid-item"><%= number_to_currency(item.price) %></div>
+            <div class="cart-grid-item"><%= render "components/quantity_selector", item: item, form: form, label: false, value: quantity %></div>
+            <div class="cart-grid-item"><%= number_to_currency(item.price * quantity) %></div>
+            <div class="cart-grid-item">
+              <a href=""></a>
+              <%= link_to remove_from_cart_path(item), data: {turbo_method: :delete}, class: "btn-delete" do %>
+                <i class="fa-solid fa-x"></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="cart-grid-total">
+          <div class="cart-grid-total-label">Subtotal:</div>
+          <div class="cart-grid-total-value"><%= number_to_currency(@cart.total_price) %></div>
+        </div>
+      </div>
+      <div class="cart-buttons-container">
+        <div class="cart-buttons">
+          <%= link_to "Continue shopping", products_path, class: "btn btn-secondary" %>
+          <%= form.submit 'Update cart', class: 'btn btn-secondary' %>
+          <%= link_to "Empty Cart", cart_path, data: {turbo_method: :delete}, class: "btn btn-secondary" %>
+        </div>
+          <%= link_to "Checkout", '#', class: "btn btn-primary" %>
+      </div>
+    <% end %>
   <% end %>
 </div>

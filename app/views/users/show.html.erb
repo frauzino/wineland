@@ -21,8 +21,8 @@
       <h3>Your account information</h3>
         email: <%= @user.email %>
         <div class="account-buttons">
-          <%= render "components/button", text: "Edit your account", path: edit_user_registration_path(@user), variant: "primary", type: "link" %>
-          <%= render "components/button", text: "Log out", path: destroy_user_session_path, method: :delete, variant: "primary", type: "link" %>
+          <%= button_to "Edit your account", edit_user_registration_path(@user), class: "btn btn-secondary" %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
         </div>
     </div>
   </div>

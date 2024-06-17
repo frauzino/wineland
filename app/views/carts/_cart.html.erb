@@ -31,8 +31,13 @@
         <% end %>
 
         <div class="cart-grid-total">
-          <div class="cart-grid-total-label">Subtotal:</div>
-          <div class="cart-grid-total-value"><%= number_to_currency(@cart.total_price) %></div>
+          <div class="cart-grid-total-label">
+            <h4>Subtotal:</h4>
+            <p>Taxes and shipping costs calculated at payment</p>
+          </div>
+          <div class="cart-grid-total-value">
+            <h4><%= number_to_currency(@cart.total_price) %></h4>
+          </div>
         </div>
       </div>
       <div class="cart-buttons-container">

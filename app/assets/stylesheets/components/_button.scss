@@ -15,6 +15,8 @@
   width: max-content;
   text-align: center;
   text-decoration: none;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
   font-size: 16px;
   cursor: pointer;
   transition: all .2s;
@@ -67,9 +69,14 @@
   color: var(--medium-gray);
   border: 1px solid transparent;
   padding: 1rem;
+  transition: all .2s;
 
   &:hover {
     background-color: transparent;
     border: 1px solid var(--medium-gray);
   }
+}
+
+.btn-small {
+  padding: .25rem;
 }

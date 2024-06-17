@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[ show edit update destroy add_to_cart remove_from_cart update_cart ]
+  before_action :set_quantities, only: %i[ show add_to_cart remove_from_cart ]
 
   # GET /carts or /carts.json
   def index
@@ -8,7 +9,6 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
-    @quantities = @cart.products.group(:id).count
   end
 
   # GET /carts/new
@@ -23,16 +23,6 @@ class CartsController < ApplicationController
   # POST /carts or /carts.json
   def create
     @cart = Cart.new(cart_params)
-
-    respond_to do |format|
-      if @cart.save
-        format.html { redirect_to cart_url(@cart), notice: "Cart was successfully created." }
-        format.json { render :show, status: :created, location: @cart }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   def add_to_cart
@@ -44,11 +34,11 @@ class CartsController < ApplicationController
       @cart.total_price += product.price
     end
 
-    if @cart.save
-      redirect_to products_path, notice: 'Product was successfully added to cart.'
-    else
-      redirect_to products_path, notice: 'Product was not added to cart.'
-    end
+    return redirect_to products_path, notice: 'Product was not added to cart.' unless @cart.save
+
+    render turbo_stream: turbo_stream.prepend('flashes',
+                                              partial: 'shared/flash',
+                                              locals: { notice: "#{product.name} added to cart" })
   end
 
   def remove_from_cart
@@ -56,11 +46,12 @@ class CartsController < ApplicationController
     @cart.products.delete(product)
     @cart.total_price -= product.price
 
-    if @cart.save
-      redirect_to cart_path(@cart), notice: 'Product was successfully removed from cart.'
-    else
-      redirect_to cart_path(@cart), notice: 'Product was not removed from cart.'
-    end
+    return redirect_to cart_path(@cart), notice: "#{product.name} was not removed from cart." unless @cart.save
+
+    render turbo_stream: [
+      turbo_stream.replace("cart_#{@cart.id}", partial: 'carts/cart', locals: { cart: @cart }),
+      turbo_stream.prepend('flashes', partial: 'shared/flash', locals: { notice: "#{product.name} removed from cart" })
+    ]
   end
 
   def update_cart
@@ -75,31 +66,32 @@ class CartsController < ApplicationController
         @cart.product_carts.where(product_id: product_id).limit(difference.abs).destroy_all
       end
     end
-    @cart.total_price = @cart.products.sum(:price)
 
-    if @cart.save
-      redirect_to cart_path(@cart), notice: 'Cart was successfully updated.'
-    else
-      redirect_to cart_path(@cart), notice: 'Cart was not updated.'
-    end
+    @cart.total_price = @cart.products.sum(:price)
+    set_quantities
+
+    return redirect_to cart_path(@cart), notice: 'Product was not removed from cart.' unless @cart.save
+
+    render turbo_stream: [
+      turbo_stream.replace("cart_#{@cart.id}", partial: 'carts/cart', locals: { cart: @cart }),
+      turbo_stream.prepend('flashes', partial: 'shared/flash', locals: { notice: 'Cart updated.' })
+    ]
   end
 
   # DELETE /carts/1 or /carts/1.json
   def destroy
+    old_cart_id = @cart.id
     @cart.destroy
     session[:cart_id] = nil
+    set_cart
 
-    respond_to do |format|
-      format.html { redirect_to cart_url, notice: 'Cart was successfully emptied.' }
-      format.json { head :no_content }
-    end
+    render turbo_stream: [
+      turbo_stream.replace("cart_#{old_cart_id}", partial: 'carts/cart', locals: { cart: @cart }),
+      turbo_stream.prepend('flashes', partial: 'shared/flash', locals: { notice: 'Cart emptied.' })
+    ]
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  # def set_cart
-  #   @cart = Cart.find(params[:id])
-  # end
 
   def set_cart
     if session[:cart_id].present?
@@ -108,6 +100,10 @@ class CartsController < ApplicationController
       @cart = Cart.create
       session[:cart_id] = @cart.id
     end
+  end
+
+  def set_quantities
+    @quantities = @cart.products.group(:id).count
   end
 
   # Only allow a list of trusted parameters through.

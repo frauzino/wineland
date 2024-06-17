@@ -12,8 +12,8 @@
   </head>
 
   <body>
-    <%= render "shared/flash", notice: %>
-    <p class="alert" style="color: red"><%= alert %></p>
+    <%#= render "shared/flash", notice: %>
+    <%= turbo_frame_tag id="flashes" %>
 
     <%= render 'components/navbar',
       nav_items: [

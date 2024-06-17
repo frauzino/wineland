@@ -1,8 +1,17 @@
 <% if resource.errors.any? %>
-    <% resource.errors.each do |error| %>
+  <% resource.errors.each do |error| %>
+    <%= turbo_stream.prepend 'flashes' do %>
       <%= render "shared/flash",
         error: true,
         notice: "#{error.full_message}"
       %>
     <% end %>
   <% end %>
+<% elsif flash[:alert] %>
+  <%= turbo_stream.prepend 'flashes' do %>
+    <%= render "shared/flash",
+      error: true,
+      notice: flash[:alert]
+    %>
+  <% end %>
+<% end %>

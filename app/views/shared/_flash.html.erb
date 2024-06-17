@@ -1,3 +1,6 @@
-<div class="flash <% if local_assigns[:error] || alert %>flash-error<% end %> <% unless notice || alert %>hidden<% end %>">
+<div data-controller="flash" class="flash <% if local_assigns[:error] || alert %>flash-error<% end %> <% unless notice || alert %>hidden<% end %>">
   <p><%= notice || alert %></p>
+  <button class="btn-delete btn-small" data-action="flash#dismiss">
+    <i class="fa-solid fa-x"></i>
+  </button>
 </div>

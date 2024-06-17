@@ -7,7 +7,7 @@
     <div class="carousel-slider" data-carousel-target="slider">
       <% products.each do |product| %>
         <div class="carousel-slide" data-carousel-target="slide">
-          <%= render product, button_type: 'tertiary'%>
+          <%= render product, bg_dark: true, button_type: 'tertiary'%>
         </div>
       <% end %>
     </div>

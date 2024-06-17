@@ -1,17 +1,29 @@
-.flash {
+#flashes {
   z-index: 1001;
   position: fixed;
   top: 5rem;
   right: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .5rem;
+  overflow: hidden;
+}
+
+.flash {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: max-content;
+  gap: 1rem;
   padding: 1rem;
-  margin: 1rem 0;
   text-align: center;
-  background: lightgreen;
-  color: darkgreen;
+  background: white;
+  color: var(--brand-green-dark);
+  border: 1px solid var(--medium-gray);
   box-shadow: var(--base-shadow);
 }
 
 .flash-error {
-  background: lightcoral;
   color: darkred
 }

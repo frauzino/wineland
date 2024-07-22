@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :users, only: %i[show]
   resources :orders, except: %i[new edit update]
   resource :cart, only: %i[show destroy]
+  resources :checkouts, only: %i[new create] do
+    get 'success', on: :collection
+  end
 
   # post 'add_to_cart/:product_id/:quantity', to: 'carts#add_to_cart', as: 'add_to_cart'
   post 'add_to_cart', to: 'carts#add_to_cart', as: 'add_to_cart'

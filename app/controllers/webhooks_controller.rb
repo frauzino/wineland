@@ -8,7 +8,7 @@ class WebhooksController < ApplicationController
     event = nil
 
     # testing secret
-    endpoint_secret = 'whsec_3bceecef14ad5b48633286fffc906e1f877f60697c37832159fa7a05fab866a2'
+    endpoint_secret = ENV.fetch('STRIPE_WEBHOOK_TESTING_ENDPOINT_SECRET')
 
     begin
       event = Stripe::Webhook.construct_event(
@@ -25,7 +25,6 @@ class WebhooksController < ApplicationController
     end
 
     create_order(event) if event['type'] == 'checkout.session.completed'
-    # create_order(event) if event['type'] == 'payment_intent.succeeded'
 
     render json: { message: 'success' }
   end

@@ -22,7 +22,6 @@
             <div class="cart-grid-item"><%= render "components/quantity_selector", item: item, form: form, label: false, value: quantity %></div>
             <div class="cart-grid-item"><%= number_to_currency(item.price * quantity) %></div>
             <div class="cart-grid-item">
-              <a href=""></a>
               <%= link_to remove_from_cart_path(item), data: {turbo_method: :delete}, class: "btn-delete" do %>
                 <i class="fa-solid fa-x"></i>
               <% end %>
@@ -46,8 +45,8 @@
           <%= form.submit 'Update cart', class: 'btn btn-secondary' %>
           <%= link_to "Empty Cart", cart_path, data: {turbo_method: :delete}, class: "btn btn-secondary" %>
         </div>
-          <%= link_to "Checkout", '#', class: "btn btn-primary" %>
       </div>
     <% end %>
+    <%= button_to "Checkout", checkouts_path(@cart.id), method: :post, data: {turbo: false}, class: "btn btn-primary" %>
   <% end %>
 </div>

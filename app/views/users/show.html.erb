@@ -6,10 +6,13 @@
       <h3>Your orders</h3>
       <% if @user.orders.any? %>
         <ul class="user-orders-list">
-          <% @user.orders.each do |order| %>
-            <li class="user-order">
-              <%= link_to order.id, order_path(order) %>
-            </li>
+          <% @user.orders.order(created_at: :desc).each do |order| %>
+            <%= link_to order_path(order) do %>
+              <li class="user-order">
+                <p><%= order.created_at.strftime("%B %d, %Y") %></p>
+                <p><%= number_to_currency(order.total_price, unit: '$', precision: 2) %></p>
+              </li>
+            <% end %>
           <% end %>
         </ul>
       <% else %>

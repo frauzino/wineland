@@ -12,8 +12,9 @@
   </head>
 
   <body>
-    <%#= render "shared/flash", notice: %>
-    <%= turbo_frame_tag id="flashes" %>
+    <%= turbo_frame_tag id="flashes" do %>
+      <%= render "shared/flash" %>
+    <% end %>
 
     <%= render 'components/navbar',
       nav_items: [

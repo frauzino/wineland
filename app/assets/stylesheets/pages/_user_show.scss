@@ -16,14 +16,14 @@
 .user-orders-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
 }
 
 .user-order {
+  width: 100%;
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--faded-text-color);
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: 1px solid var(--light-gray);
 }
 
 .account-buttons {

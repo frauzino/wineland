@@ -6,6 +6,10 @@ class OrdersController < ApplicationController
   end
 
   def show
+    uniq_items = @order.products.uniq
+    @line_items = uniq_items.map do |item|
+      { product: item, quantity: @order.products.to_a.count(item) }
+    end
   end
 
   def new
@@ -59,5 +63,4 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:total_price, :user_id)
   end
-
 end

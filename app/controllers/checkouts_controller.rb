@@ -18,9 +18,7 @@ class CheckoutsController < ApplicationController
   end
 
   def success
-    create_order_from_cart
     @cart.destroy
-    session[:cart_id] = nil
     flash[:notice] = 'Thank you for your purchase!'
     redirect_to root_path
   end
@@ -28,16 +26,6 @@ class CheckoutsController < ApplicationController
   private
 
   def set_cart
-    @cart = Cart.find(session[:cart_id])
-  end
-
-  def create_order_from_cart
-    order = Order.new(user: current_user, total_price: @cart.total_price)
-
-    @cart.products.each do |product|
-      order.products << product
-    end
-
-    order.save
+    @cart = Cart.find_by(user_id: current_user.id)
   end
 end

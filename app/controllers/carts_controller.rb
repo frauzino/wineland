@@ -82,7 +82,6 @@ class CartsController < ApplicationController
   def destroy
     old_cart_id = @cart.id
     @cart.destroy
-    session[:cart_id] = nil
     set_cart
 
     render turbo_stream: [
@@ -94,11 +93,10 @@ class CartsController < ApplicationController
   private
 
   def set_cart
-    if session[:cart_id].present?
-      @cart = Cart.find(session[:cart_id])
+    if current_user.cart.present?
+      @cart = current_user.cart
     else
-      @cart = Cart.create
-      session[:cart_id] = @cart.id
+      @cart = Cart.create(user: current_user)
     end
   end
 

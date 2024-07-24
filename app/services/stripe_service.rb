@@ -9,6 +9,10 @@ module StripeService
       client_reference_id: user.id,
       allow_promotion_codes: false,
       mode: 'payment',
+      billing_address_collection: 'required',
+      shipping_address_collection: {
+        allowed_countries: ['CA', 'US']
+      },
       line_items: cart.products.uniq.map do |product|
         {
           price_data: {

@@ -146,6 +146,7 @@ Product.last.image.attach(
 Product.create(
   name: 'Case of 12 Assorted Vinaigrettes',
   price: 80.00,
+  assortable: true,
   description: "You can mix & match your Full Case with all of our products and can order
     as many Full Cases as you'd like."
 )
@@ -158,6 +159,7 @@ Product.last.image.attach(
 Product.create(
   name: '3 Bottle Variety Pack',
   price: 23.00,
+  assortable: true,
   description: "You can mix & match your Variety Pack with all of our products and can order as many
     Variety Packs as you'd like."
 )

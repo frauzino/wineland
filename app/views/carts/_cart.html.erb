@@ -13,19 +13,28 @@
           <h4 class="cart-grid-headers-total">Total</h4>
         </div>
 
-        <% @cart.products.uniq.each do |item| %>
-          <% quantity = @quantities[item.id] %>
+        <% @cart.cart_items.uniq { |item| [item.product.id, item.contents] }.each do |item| %>
+          <% quantity = @quantities[[item.product.id, item.contents]] %>
           <div class=cart-grid-product>
-            <div class="cart-grid-item"><%= image_tag item.image, alt: item.name, class: "cart-item-image" %></div>
-            <div class="cart-grid-item"><%= link_to item.name, product_path(item) %></div>
-            <div class="cart-grid-item"><%= number_to_currency(item.price) %></div>
+            <div class="cart-grid-item"><%= image_tag item.product.image, alt: item.product.name, class: "cart-item-image" %></div>
+            <div class="cart-grid-item"><%= link_to item.product.name, product_path(item) %></div>
+            <div class="cart-grid-item"><%= number_to_currency(item.product.price) %></div>
             <div class="cart-grid-item"><%= render "components/quantity_selector", item: item, form: form, label: false, value: quantity %></div>
-            <div class="cart-grid-item"><%= number_to_currency(item.price * quantity) %></div>
+            <div class="cart-grid-item"><%= number_to_currency(item.product.price * quantity) %></div>
             <div class="cart-grid-item">
-              <%= link_to remove_from_cart_path(item), data: {turbo_method: :delete}, class: "btn-delete" do %>
+              <%= link_to remove_from_cart_path(item.product, contents: item.contents), data: {turbo_method: :delete}, class: "btn-delete" do %>
                 <i class="fa-solid fa-x"></i>
               <% end %>
             </div>
+
+            <% if item.contents %>
+              <ul class="cart-product-contents-list">
+                <h5>Contents:</h5>
+                <% item.contents.each do |prod_name, prod_info| %>
+                  <li><%= "#{prod_name} x #{prod_info['quantity']}" %></li>
+                <% end %>
+              </ul>
+            <% end %>
           </div>
         <% end %>
 
@@ -39,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="cart-buttons-container">
+      <div class="buttons-container">
         <div class="cart-buttons">
           <%= link_to "Continue shopping", products_path, class: "btn btn-secondary" %>
           <%= form.submit 'Update cart', class: 'btn btn-secondary' %>
@@ -47,6 +56,8 @@
         </div>
       </div>
     <% end %>
-    <%= button_to "Checkout", checkouts_path(@cart.id), method: :post, data: {turbo: false}, class: "btn btn-primary" %>
+    <div class="buttons-container">
+      <%= button_to "Checkout", checkouts_path(@cart.id), method: :post, data: {turbo: false}, class: "btn btn-primary" %>
+    </div>
   <% end %>
 </div>

@@ -1,14 +1,17 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :set_order, only: %i[show edit update destroy]
+  before_action :ensure_admin, only: %i[index edit update destroy]
+  before_action :ensure_access_to_order, only: %i[show]
 
   def index
     @orders = Order.all
   end
 
   def show
-    uniq_items = @order.products.uniq
+    uniq_items = @order.order_items.uniq { |item| [item.product.id, item.contents] }
+
     @line_items = uniq_items.map do |item|
-      { product: item, quantity: @order.products.to_a.count(item) }
+      { product: item.product, contents: item.contents, quantity: @order.order_items.where(product: item.product, contents: item.contents).count}
     end
   end
 

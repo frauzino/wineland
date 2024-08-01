@@ -26,16 +26,16 @@
       </div>
 
       <div class="field">
-        <%= f.password_field :current_password, autocomplete: "current-password", placeholder: 'Current password (needed to confirm changes)' %>
+        <%= f.password_field :current_password, autocomplete: "current-password", placeholder: 'Current password (to confirm changes)' %>
       </div>
 
       <div class="actions">
         <%= render "components/button", text: 'Update', path: registration_path(resource_name), variant: 'primary', type: 'submit' %>
       </div>
 
-    <%= button_to "Cancel my account", registration_path(resource_name), class: "btn btn-primary", data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %>
+      <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %>
 
-    <%= link_to "Back", :back %>
+      <%= link_to "Back", :back %>
     </div>
   <% end %>
 </div>

@@ -33,8 +33,13 @@ class WebhooksController < ApplicationController
 
   def create_order(event)
     session = event['data']['object']
-    user = User.find(session['client_reference_id'])
-    cart = Cart.find_by(user_id: user.id)
+    # user = User.find(session['client_reference_id'])
+    if session['client_reference_id'] == session['metadata']['cartID']
+      user = nil
+    else
+      user = User.find(session['client_reference_id'])
+    end
+    cart = Cart.find(session['metadata']['cartID'])
 
     order = Order.new(
       user: user,
@@ -45,8 +50,8 @@ class WebhooksController < ApplicationController
       billing_address: session['customer_details']['address']
     )
 
-    cart.products.each do |product|
-      order.products << product
+    cart.cart_items.each do |item|
+      order.order_items.build(product: item.product, contents: item.contents)
     end
 
     order.save

@@ -21,6 +21,8 @@ Things you may want to cover:
 
 * Services (job queues, cache servers, search engines, etc.)
 
+to test Stripe webhooks run: stripe listen --forward-to localhost:3000/webhooks/stripe
+
 * Deployment instructions
 
 * ...

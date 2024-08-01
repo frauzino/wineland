@@ -10,10 +10,18 @@
       </div>
     </div>
   <% end %>
-  <%= button_to 'Add to Cart',
-    add_to_cart_path,
-    method: :post,
-    params: {product_id: product.id, quantities: {product.id => 1}},
-    class: "btn btn-#{button_type}"
-  %>
+
+  <% if product.assortable %>
+    <%= link_to 'Select Options',
+      product_path(product),
+      class: "btn btn-#{button_type}"
+    %>
+  <% else %>
+    <%= button_to 'Add to Cart',
+      add_to_cart_path,
+      method: :post,
+      params: {product_id: product.id, quantities: {product.id => 1}},
+      class: "btn btn-#{button_type}"
+    %>
+  <% end %>
 </div>

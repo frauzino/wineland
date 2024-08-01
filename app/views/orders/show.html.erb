@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="page-container" data-controller="print" data-print-target="printableArea">
   <h1 class="page-title">Order #<%= @order.id %></h1>
   <div class="order">
     <div class="order-grid">
@@ -12,11 +12,21 @@
       <% @line_items.each do |item| %>
         <div class="order-grid-product">
           <div class="order-grid-item"><%= image_tag item[:product].image, alt: item[:product].name, class: "order-item-image" %></div>
-          <div class="order-grid-item"><%= link_to item[:product].name, product_path(item[:product]) %></div>
+          <div class="order-grid-item">
+            <%= link_to item[:product].name, product_path(item[:product]) %>
+          </div>
           <div class="order-grid-item"><%= number_to_currency(item[:product].price) %></div>
           <div class="order-grid-item"><%= item[:quantity] %></div>
           <div class="order-grid-item"><%= number_to_currency(item[:product].price * item[:quantity]) %></div>
         </div>
+         <% if item[:contents].present? %>
+          <ul class="order-grid-product product-contents-list">
+            <h5>Contents:</h5>
+            <% item[:contents].each do |prod_name, prod_info| %>
+              <li><%= "#{prod_name} x #{prod_info['quantity']}" %></li>
+            <% end %>
+          </ul>
+          <% end %>
       <% end %>
 
       <div class="order-grid-total">
@@ -51,7 +61,16 @@
           <p><%= @order.billing_address["city"] %>, <%= @order.address["state"] %>, <%= @order.address["postal_code"] %></p>
           <p><%= @order.billing_address["country"] %></p>
         </div>
+      </div>
     </div>
 
+    <div class="buttons-container">
+      <button class="btn btn-primary" data-action="click->print#printOrder">Print Order</button>
+      <% if current_user.admin %>
+        <%= link_to "Back to Orders", orders_path, class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to "Back to Account", user_path(current_user), class: "btn btn-primary" %>
+      <% end %>
+    </div>
   </div>
 </div>

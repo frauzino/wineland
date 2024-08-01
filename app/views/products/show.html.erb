@@ -12,12 +12,39 @@
           <p><%= @product.description %></p>
         </div>
 
-      <%= form_with url: add_to_cart_path, method: :post do |form| %>
-        <div class="add-to-cart-wrapper">
-          <%= form.hidden_field :product_id, value: @product.id %>
-          <%= render 'components/quantity_selector', form: form, item: @product %>
-          <%= form.submit 'Add to cart', class: 'btn btn-primary' %>
-        </div>
+      <% if @product.assortable %>
+        <%= form_with url: add_to_cart_path, method: :post, data: { controller: "contents-select" } do |form| %>
+          <div class="add-to-cart-wrapper">
+            <%= form.hidden_field :product_id, value: @product.id %>
+            <% Product.where(assortable: false).each do |prod| %>
+              <%= form.fields_for :contents, index: prod.name do |p| %>
+                <div class="product-option-select">
+                  <%= p.label :quantity, prod.name %>
+                  <%= p.number_field :quantity,
+                    min: 0,
+                    value: 0,
+                    data: {
+                      action: "change->contents-select#checkInputs",
+                      "contents-select-target": "selectFormInput"
+                    }
+                  %>
+                </div>
+              <% end %>
+            <% end %>
+            <%= render 'components/quantity_selector', form: form, item: @product %>
+            <p class="select-hint" data-contents-select-target="info">Please choose a total of 12 items</p>
+            <%= form.submit 'Add to cart', class: 'btn btn-primary', data: { "contents-select-target": "submit" } %>
+          </div>
+        <% end %>
+
+      <% else %>
+        <%= form_with url: add_to_cart_path, method: :post do |form| %>
+          <div class="add-to-cart-wrapper">
+            <%= form.hidden_field :product_id, value: @product.id %>
+            <%= render 'components/quantity_selector', form: form, item: @product %>
+            <%= form.submit 'Add to cart', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
       <% end %>
       </div>
     </div>

@@ -3,20 +3,26 @@
 
   <div class="account-container">
     <div class="user-orders-container">
-      <h3>Your orders</h3>
-      <% if @user.orders.any? %>
-        <ul class="user-orders-list">
-          <% @user.orders.order(created_at: :desc).each do |order| %>
-            <%= link_to order_path(order) do %>
-              <li class="user-order">
-                <p><%= order.created_at.strftime("%B %d, %Y") %></p>
-                <p><%= number_to_currency(order.total_price, unit: '$', precision: 2) %></p>
-              </li>
-            <% end %>
-          <% end %>
-        </ul>
+      <% if @user.admin %>
+        <h3>Admin Dashboard</h3>
+        <p>As an admin, you can view and manage all orders and products.</p>
+        <%= link_to "Orders", orders_path, class: "btn btn-primary" %>
       <% else %>
-        <p>You have no orders yet.</p>
+        <h3>Your orders</h3>
+        <% if @user.orders.any? %>
+          <ul class="orders-list">
+            <% @user.orders.order(created_at: :desc).each do |order| %>
+              <%= link_to order_path(order) do %>
+                <li class="listed-order">
+                  <p><%= order.created_at.strftime("%B %d, %Y") %></p>
+                  <p><%= number_to_currency(order.total_price, unit: '$', precision: 2) %></p>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>You have no orders yet.</p>
+        <% end %>
       <% end %>
     </div>
 
@@ -24,7 +30,7 @@
       <h3>Your account information</h3>
         email: <%= @user.email %>
         <div class="account-buttons">
-          <%= button_to "Edit your account", edit_user_registration_path(@user), class: "btn btn-secondary" %>
+          <%= link_to "Edit your account", edit_user_registration_path(@user), class: "btn btn-secondary" %>
           <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
         </div>
     </div>

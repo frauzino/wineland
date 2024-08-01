@@ -7,8 +7,9 @@
 # User.destroy_all
 # Order.destroy_all
 
+OrderItem.destroy_all
 Order.destroy_all
-ProductCart.destroy_all
+CartItem.destroy_all
 Cart.destroy_all
 Product.destroy_all
 Retailer.destroy_all

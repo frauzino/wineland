@@ -26,6 +26,7 @@ class CheckoutsController < ApplicationController
   private
 
   def set_cart
-    @cart = Cart.find_by(user_id: current_user.id)
+    # @cart = Cart.find_by(user_id: current_user.id)
+    @cart = Cart.find(session[:cart_id])
   end
 end

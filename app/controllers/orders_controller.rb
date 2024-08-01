@@ -6,9 +6,10 @@ class OrdersController < ApplicationController
   end
 
   def show
-    uniq_items = @order.products.uniq
+    uniq_items = @order.order_items.uniq { |item| [item.product.id, item.contents] }
+
     @line_items = uniq_items.map do |item|
-      { product: item, quantity: @order.products.to_a.count(item) }
+      { product: item.product, contents: item.contents, quantity: @order.order_items.where(product: item.product, contents: item.contents).count}
     end
   end
 

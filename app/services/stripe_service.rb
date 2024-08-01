@@ -1,12 +1,15 @@
 module StripeService
   module_function
 
-  def create_checkout_session(user, cart, success_url:, cancel_url:)
+  def create_checkout_session(user = nil, cart, success_url:, cancel_url:)
     session = Stripe::Checkout::Session.create({
       success_url: success_url,
       cancel_url: cancel_url,
       payment_method_types: ['card'],
-      client_reference_id: user.id,
+      client_reference_id: user&.id || cart.id,
+      metadata: {
+        cartID: cart.id
+      },
       allow_promotion_codes: false,
       mode: 'payment',
       billing_address_collection: 'required',
@@ -22,8 +25,8 @@ module StripeService
               name: product.name,
               description: product.description,
               metadata: {
-                productID: product.id,
-                userId: user.id
+                productID: product.id
+                # userId: user.id
               }
             }
           },

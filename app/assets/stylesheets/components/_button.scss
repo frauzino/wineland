@@ -1,3 +1,11 @@
+.buttons-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
 .button-wrapper {
   display: flex;
   justify-content: center;
@@ -79,4 +87,18 @@
 
 .btn-small {
   padding: .25rem;
+}
+
+.btn-disabled {
+  background-color: transparent;
+  color: darkgray;
+  border: 1px solid darkgray;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media print {
+  .buttons-container {
+    display: none;
+  }
 }

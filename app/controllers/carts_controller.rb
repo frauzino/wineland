@@ -26,11 +26,12 @@ class CartsController < ApplicationController
   end
 
   def add_to_cart
+    product_contents = params[:contents].to_unsafe_h if params[:contents].present?
     product = Product.find(params[:product_id])
     quantity = params[:quantities][params[:product_id]].to_i
 
     quantity.times do
-      @cart.products << product
+      CartItem.create(cart: @cart, product: product, contents: (product_contents if product_contents.present?))
       @cart.total_price += product.price
     end
 
@@ -43,8 +44,12 @@ class CartsController < ApplicationController
 
   def remove_from_cart
     product = Product.find(params[:product_id])
-    @cart.products.delete(product)
-    @cart.total_price -= product.price
+    cart_items_to_delete = @cart.cart_items.where(product: product, contents: params[:contents])
+    cart_items_to_delete_count = cart_items_to_delete.count
+    @cart.cart_items.delete(cart_items_to_delete)
+    cart_items_to_delete_count.times do
+      @cart.total_price -= product.price
+    end
 
     return redirect_to cart_path(@cart), notice: "#{product.name} was not removed from cart." unless @cart.save
 
@@ -55,22 +60,24 @@ class CartsController < ApplicationController
   end
 
   def update_cart
-    params[:quantities].each do |product_id, quantity|
-      product = Product.find(product_id)
-      current_quantity = @cart.products.where(id: product_id).count
-      difference = quantity.to_i - current_quantity
+    params[:quantities].each do |cart_item_id, new_quantity|
+      cart_item = CartItem.find(cart_item_id)
+      current_quantity = @cart.cart_items.where(product: cart_item.product, contents: cart_item.contents).count
+      difference = new_quantity.to_i - current_quantity
 
       if difference.positive?
-        difference.times { @cart.products << product }
+        difference.times do
+          CartItem.create(cart: @cart, product: cart_item.product, contents: (cart_item.contents if cart_item.contents.present?))
+        end
       elsif difference.negative?
-        @cart.product_carts.where(product_id: product_id).limit(difference.abs).destroy_all
+        @cart.cart_items.where(product: cart_item.product, contents: (cart_item.contents if cart_item.contents.present?)).limit(difference.abs).destroy_all
       end
     end
 
     @cart.total_price = @cart.products.sum(:price)
     set_quantities
 
-    return redirect_to cart_path(@cart), notice: 'Product was not removed from cart.' unless @cart.save
+    return redirect_to cart_path(@cart), notice: 'There was a problem. Cart was not updated.' unless @cart.save
 
     render turbo_stream: [
       turbo_stream.replace("cart_#{@cart.id}", partial: 'carts/cart', locals: { cart: @cart }),
@@ -82,6 +89,7 @@ class CartsController < ApplicationController
   def destroy
     old_cart_id = @cart.id
     @cart.destroy
+    session[:cart_id] = nil
     set_cart
 
     render turbo_stream: [
@@ -93,15 +101,21 @@ class CartsController < ApplicationController
   private
 
   def set_cart
-    if current_user.cart.present?
-      @cart = current_user.cart
+    # if current_user.cart.present?
+    #   @cart = current_user.cart
+    # else
+    #   @cart = Cart.create(user: current_user)
+    # end
+    if session[:cart_id].present? && Cart.exists?(session[:cart_id])
+      @cart = Cart.find(session[:cart_id])
     else
-      @cart = Cart.create(user: current_user)
+      @cart = Cart.create
+      session[:cart_id] = @cart.id
     end
   end
 
   def set_quantities
-    @quantities = @cart.products.group(:id).count
+    @quantities = @cart.cart_items.group_by { |item| [item.product.id, item.contents] }.transform_values(&:count)
   end
 
   # Only allow a list of trusted parameters through.

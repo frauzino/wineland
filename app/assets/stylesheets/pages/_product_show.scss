@@ -2,7 +2,6 @@
   display: flex;
   gap: 2rem;
   margin: var(--product-margin);
-  max-height: 70vh;
 }
 
 .product-show-image-wrapper, .product-show-content-wrapper {
@@ -31,4 +30,22 @@
   h1 {
     font-size: clamp(1.5rem, 4vw, 3rem);
   }
+}
+
+.add-to-cart-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-top: 1rem;
+}
+
+.product-option-select {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.select-hint {
+  font-size: 1rem;
+  color: red;
 }

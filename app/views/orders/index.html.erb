@@ -1,0 +1,17 @@
+<div class="page-container">
+  <h1 class="page-title">All Orders</h1>
+  <% if @orders.any? %>
+    <ul class="orders-list">
+      <% @orders.order(created_at: :desc).each do |order| %>
+        <%= link_to order_path(order), class: 'order-link' do %>
+          <li class="listed-order">
+            <p><%= order.created_at.strftime("%B %d, %Y") %></p>
+            <p><%= number_to_currency(order.total_price, unit: '$', precision: 2) %></p>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no orders yet.</p>
+  <% end %>
+</div>

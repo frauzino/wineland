@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[ show edit update destroy ]
+  before_action :set_order, only: %i[show edit update destroy]
+  before_action :ensure_admin, only: %i[index edit update destroy]
+  before_action :ensure_access_to_order, only: %i[show]
 
   def index
     @orders = Order.all
